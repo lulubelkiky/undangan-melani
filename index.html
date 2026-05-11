@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Ngeraja Sewala - Ni Luh Melani</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-light: #f1dfad;
+            --gold-primary: #d4af37; 
+            --gold-dark: #b8860b;
+            --bg-gold: linear-gradient(135deg, #e5c158 0%, #f1dfad 50%, #d4af37 100%);
+            --dark-text: #4a3b00;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background: var(--bg-gold); 
+            background-attachment: fixed;
+            color: var(--dark-text);
+            text-align: center;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        header h2 { font-weight: 300; letter-spacing: 5px; text-transform: uppercase; font-size: 1.1rem; margin: 0; }
+        header h1 { font-family: 'Great Vibes', cursive; font-size: 5.5rem; margin: 15px 0; }
+
+        .container { max-width: 600px; margin: auto; padding: 60px 20px; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        /* Countdown Style */
+        .countdown { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+        .time-box {
+            background: var(--dark-text);
+            color: var(--gold-light);
+            padding: 15px;
+            border-radius: 12px;
+            min-width: 70px;
+        }
+        .time-box span { font-size: 1.8rem; font-weight: bold; display: block; }
+        .time-box small { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
+
+        .btn {
+            background: var(--dark-text);
+            color: var(--gold-light);
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--dark-text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gold-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        footer { padding: 40px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+    <audio id="mySong" loop>
+        <source src="tenten-palawara.mp3" type="audio/mpeg">
+    </audio>
+
+    <header>
+        <h2>Om Swastiastu</h2>
+        <p style="letter-spacing: 2px;">Upacara Ngeraja Sewala</p>
+        <h1>Ni Luh Melani</h1>
+        <p>Kamis, 14 Mei 2026</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h3>Menghitung Hari</h3>
+            <div class="countdown" id="timer">
+                <div class="time-box"><span id="days">0</span><small>Hari</small></div>
+                <div class="time-box"><span id="hours">0</span><small>Jam</small></div>
+                <div class="time-box"><span id="minutes">0</span><small>Menit</small></div>
+                <div class="time-box"><span id="seconds">0</span><small>Detik</small></div>
+            </div>
+            <p style="font-size: 0.9rem; color: #666;">Sampai acara dimulai pada 14 Mei 2026, 09:00 WITA</p>
+        </div>
+
+        <div class="card">
+            <h3>Lokasi Acara</h3>
+            <p><strong>Kediaman Keluarga</strong><br>
+            Jalan Sanggar Agung No. 1<br>
+            Jimbaran, Kuta Selatan, Bali</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Sanggar+Agung+No.+1+Jimbaran" 
+               target="_blank" class="btn">Buka di Google Maps</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Matur Suksma,<br>Keluarga Besar Ni Luh Melani</p>
+    </footer>
+
+    <script>
+        // TARGET TANGGAL: 14 Mei 2026 jam 09:00:00
+        const countDownDate = new Date("May 14, 2026 09:00:00").getTime();
+
+        // Update hitungan setiap 1 detik
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            // Perhitungan waktu untuk hari, jam, menit dan detik
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Tampilkan hasil ke elemen dengan id terkait
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            // Jika hitungan mundur selesai
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "<h3>Acara Sedang Berlangsung</h3>";
+            }
+        }, 1000);
+
+        // Logika Musik
+        const song = document.getElementById("mySong");
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) { 
+                song.pause(); 
+                document.getElementById("music-control").innerText = "🔇"; 
+            } else { 
+                song.play().catch(e => console.log("Interaksi diperlukan"));
+                document.getElementById("music-control").innerText = "🎵"; 
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
